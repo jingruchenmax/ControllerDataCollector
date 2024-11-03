@@ -49,8 +49,7 @@ def extract_features_from_chunk(df):
                 print(f"Processing column: {col}")
                 spectral_power = compute_spectral_power(df[col], fs)
                 print(f"Spectral power for {col}: {spectral_power[:5]}")
-                for i, value in enumerate(spectral_power):
-                    features[f'spectral_power_{col}'] = value
+                features[f'spectral_power_{col}'] = np.mean(spectral_power)
             else:
                 print(f"Warning: {col} not found in DataFrame")
         

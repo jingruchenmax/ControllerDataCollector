@@ -4523,7 +4523,7 @@ MonoBehaviour:
   _buttonClickActions:
   - Title: StartRightControllerRecording
     Button: 5
-    ButtonMode: 2
+    ButtonMode: 1
     Callback:
       m_PersistentCalls:
         m_Calls:
@@ -4541,7 +4541,7 @@ MonoBehaviour:
           m_CallState: 2
   - Title: StopRightControllerRecording
     Button: 10
-    ButtonMode: 2
+    ButtonMode: 1
     Callback:
       m_PersistentCalls:
         m_Calls:
