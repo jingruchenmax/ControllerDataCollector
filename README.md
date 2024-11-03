@@ -25,5 +25,5 @@ Connect to Meta using Meta Quest Link.
    Classification results trigger the generative AI system.
 
 ## Preliminary Pattern Naming
-![](image.png)
+![](py/image.png)
 
