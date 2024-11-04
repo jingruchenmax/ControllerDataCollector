@@ -1,0 +1,21 @@
+SVM Model Test Evaluation:
+Accuracy: 0.99
+Precision: 0.99
+Recall: 0.99
+F1-Score: 0.99
+
+Classification Report:
+              precision    recall  f1-score   support
+
+       r_phi       1.00      1.00      1.00        27
+    r_square       1.00      0.95      0.98        22
+  r_triangle       0.97      1.00      0.99        35
+
+    accuracy                           0.99        84
+   macro avg       0.99      0.98      0.99        84
+weighted avg       0.99      0.99      0.99        84
+
+Confusion Matrix:
+[[27  0  0]
+ [ 0 21  1]
+ [ 0  0 35]]

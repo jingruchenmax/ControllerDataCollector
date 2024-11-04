@@ -5,6 +5,7 @@ using UnityEngine.Networking;
 using System.Text;
 using Newtonsoft.Json;
 using TMPro;
+using Newtonsoft.Json.Linq;
 
 public class RightCTestDataSender : MonoBehaviour
 {
@@ -101,6 +102,20 @@ public class RightCTestDataSender : MonoBehaviour
         {
             Dictionary<string, float> dataPoint = new Dictionary<string, float>
             {
+                { "left_controller_pos_x", entry.leftControllerPosition.x },
+                { "left_controller_pos_y", entry.leftControllerPosition.y },
+                { "left_controller_pos_z", entry.leftControllerPosition.z },
+                { "left_controller_rot_w", entry.leftControllerRotation.w },
+                { "left_controller_rot_x", entry.leftControllerRotation.x },
+                { "left_controller_rot_y", entry.leftControllerRotation.y },
+                { "left_controller_rot_z", entry.leftControllerRotation.z },
+                { "hmd_pos_x", entry.hmdPosition.x },
+                { "hmd_pos_y", entry.hmdPosition.y },
+                { "hmd_pos_z", entry.hmdPosition.z },
+                { "hmd_rot_w", entry.hmdRotation.w },
+                { "hmd_rot_x", entry.hmdRotation.x },
+                { "hmd_rot_y", entry.hmdRotation.y },
+                { "hmd_rot_z", entry.hmdRotation.z },
                 { "right_controller_pos_x", entry.rightControllerPosition.x },
                 { "right_controller_pos_y", entry.rightControllerPosition.y },
                 { "right_controller_pos_z", entry.rightControllerPosition.z },
@@ -124,15 +139,35 @@ public class RightCTestDataSender : MonoBehaviour
 
             yield return www.SendWebRequest();
 
-            if (www.result == UnityWebRequest.Result.Success)
+            // Assuming text is a TextMeshPro object
+            string responseText = www.downloadHandler.text;
+
+            // Parse the JSON response to make it more readable
+            try
             {
-                Debug.Log("Server Response: " + www.downloadHandler.text);
-                text.text = www.downloadHandler.text;
+                JObject jsonResponse = JObject.Parse(responseText);
+                string formattedText = "";
+
+                foreach (var result in jsonResponse)
+                {
+                    formattedText += $"{result.Key}:\n";
+                    JObject resultDetails = (JObject)result.Value;
+
+                    foreach (var detail in resultDetails)
+                    {
+                        formattedText += $"- {detail.Key}: {detail.Value}\n";
+                    }
+
+                    formattedText += "\n"; // Add spacing between sections
+                }
+
+                // Assign the formatted text to the TextMeshPro object
+                text.text = formattedText;
             }
-            else
+            catch (System.Exception e)
             {
-                Debug.LogError("Error: " + www.error);
-                text.text = www.error;
+                // Handle any parsing errors and display the raw text if parsing fails
+                text.text = "Error parsing response:\n" + e.Message + "\nRaw response:\n" + responseText;
             }
         }
     }
