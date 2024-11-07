@@ -1,4 +1,4 @@
-# ControllerDataController
+# ControllerDataCollector
 
 This project is designed for collecting HMD and controller data in Unity (position, rotation) for sktime ML testing.
 
